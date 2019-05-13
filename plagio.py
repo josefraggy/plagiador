@@ -4,18 +4,24 @@
 #
 # Fuente Palabras:
 # https://www.ejemplos.co/100-ejemplos-de-conectores/#ixzz5ngoSK5xD
+# Abrir Varios Archivos:
+# https://www.quora.com/How-do-I-read-mutiple-txt-files-from-folder-in-python
 #
 # @author: Jose Fraggy
 # @since: 12 de mayo de 2019
-# @version: 1.0
+# @version: 1.1
 
-# TODO: Pedir carpeta al usuario
-# abrir todos los textos de esta carpeta y crear arreglo de palabras
-# comparar las palabras entre archivos y decir cuanto se parecen.
+# TODO:
+# Hacer el codigo modular.
+# Pensar si ordenar las palabras y solo buscar entre alfabeticas.
+# Comparar las palabras entre arreglos y decir cuanto se parecen.
+# El total entre las que existen es el porcentaje de coincidencia.
 # Si hay mas del 50% de coincidencia se muestra el mensaje.
 
+import os.path
+
 palabras = []
-relleno = ["ante todo","antes que nada","despues","despues de lo cual",
+relleno  = ["ante todo","antes que nada","despues","despues de lo cual",
 "en primer lugar","en ultimo lugar","finalmente","luego","para concluir",
 "para empezar","para terminar","por otra parte","por otro lado","por ultimo",
 "por una parte","por un lado","primero","sobre todo","y asi sucesivamente",
@@ -43,29 +49,54 @@ relleno = ["ante todo","antes que nada","despues","despues de lo cual",
 "la","las","los","su","es","ser","lo","mas","una","o","eso","estos","por","hay"
 "sea","se","son","somos","un","muy","menos","sin","si","no","introduccion",
 "desarrollo","conclusion","referencia","referencias","del","muchos","pocos",
-"sea","su","sus","\u2028","esta","bueno","malo","1","2","3","4","5","6","7","8","9"]
+"sea","su","sus","\u2028","esta","bueno","malo","1","2","3","4","5","6","7",
+"8","9","e","t","x"]
 
 # Quitamos acentos y simbolos especiales
-a,b = 'áéíóúü\n,.;:¿?/()','aeiouu          '
+a,b   = 'áéíóúü\n,.;:¿?/()','aeiouu          '
 trans = str.maketrans(a,b)
+# Arreglos
+files    = {}
+filelist = []
 
-f = open("E2.txt", "r")
-for i in f:
-  i = i.translate(trans)
-  i = i.split(" ")
-  if i[:1] == ['https']:
-      pass
-  else:
-      for j in range(len(i)):
-          i[j] = i[j].lower()
-          if i[j] in relleno:
-              pass
-          else:
-              palabras.append(i[j])
-  # palabras.append(i);
+for filename in os.listdir():
+    if os.path.isfile(filename) \
+       and filename.endswith(".txt") \
+       and not filename in files:
+        with open(filename, "r") as file:
+            # Abrimos el archivo y quitamos palabras que no ocupamos.
+            filelist.append(filename)
+            for i in file:
+              i = i.translate(trans)
+              i = i.split(" ")
+              if i[:1] == ['https']:
+                  pass
+              else:
+                  for j in range(len(i)):
+                      i[j] = i[j].lower()
+                      if i[j] in relleno:
+                          pass
+                      else:
+                          palabras.append(i[j])
+            # Guardamos las palabras en el arreglo con el nombre del archivo.
+            files[filename] = palabras
+            palabras        = []
 
-f.close()
-
-print(palabras)
-# Comparar si las palabras existen en el otro arreglo,
-# el total entre las que existen es el porcentaje de coincidencia.
+# Estos prints son para recordar como están los arreglos formados
+print('\n')
+print('\n')
+print(filelist[0])
+print('\n')
+print(files[filelist[0]])
+print('\n')
+print('\n')
+print(filelist[1])
+print('\n')
+print(files[filelist[1]])
+print('\n')
+print('\n')
+print(filelist[2])
+print('\n')
+print(files[filelist[2]][0])
+print('\n')
+print('\n')

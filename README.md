@@ -1,7 +1,7 @@
 # Plagiador
  @author: josefraggy <br />
  @since: 12 de mayo de 2019 <br />
- @version: 1.0 <br />
+ @version: 1.1 <br />
 
 # Descripción
 Programa que revisa la probabilidad de que varios archivos de texto sean parecidos,<br /> extrayendo las palabras de cada texto y despues comparandolos. <br />
