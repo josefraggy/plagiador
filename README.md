@@ -9,4 +9,6 @@ Se obteniendo un porcentaje de coincidencia.
 
 # Apoyo:
 Fuente de Palabras: <br />
-https://www.ejemplos.co/100-ejemplos-de-conectores/#ixzz5ngoSK5xD
+https://www.ejemplos.co/100-ejemplos-de-conectores/#ixzz5ngoSK5xD <br />
+Abrir Varios Archivos: <br />
+https://www.quora.com/How-do-I-read-mutiple-txt-files-from-folder-in-python
