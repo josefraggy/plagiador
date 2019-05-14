@@ -11,11 +11,9 @@ https://www.quora.com/How-do-I-read-mutiple-txt-files-from-folder-in-python
 
 @author:  Jose Fraggy
 @since:   12 de mayo de 2019
-@version: 1.1
+@version: 2.0
 
 TODO:
-    - El total entre las que existen es el porcentaje de coincidencia.
-    - Si hay mas del 50% de coincidencia se muestra el mensaje.
     - Quitar las palabras entre comillas.
     - Proximamente que funcione con pdf, pages y office.
     - Que regrese un reporte en el que subraye las partes de coincidencia.
@@ -25,7 +23,7 @@ import os.path
 from text_fill import relleno
 
 """
-searchWords(nombre_archivo) lee las palabras del txt y regresa:
+searchWords(nombre_archivo) Lee las palabras del txt y regresa:
     - Quita las palabras de relleno.
     - Las hace minusculas.
     - Quita simbolos y acentos.
@@ -54,6 +52,10 @@ def searchWords(file):
                   palabras.append(i[j])
     return palabras
 
+"""
+compare(file1, file2) Compara las palabras entre textos:
+    - Regresa el porcentaje de coincidencias con 2 decimales.
+"""
 def compare(file1, file2):
     number = 0
     for i in file1:
@@ -61,12 +63,15 @@ def compare(file1, file2):
             number = number + 1
         else:
             pass
-    print(number)
+    percentage = round((number * 100) / len(file1))
+    return percentage
+
 """
-combinations() compara los arreglos y regresa los porcentajes de error.
+combinations(files, filelist) Compara los arreglos.
+    - Regresa los porcentajes de error.
 """
 def combinations(files, filelist):
-    results = []
+    results = 0
     c = 0
     # Hacemos las combinaciones.
     for i in filelist:
@@ -76,18 +81,15 @@ def combinations(files, filelist):
             or filelist[j + c] == filelist[c]:
                 pass
             else:
-                compare(files[filelist[c]], files[filelist[j + c]])
-                # print(filelist[c])
-                # print(len(files[filelist[c]]))
-                # print("-" + filelist[j + c])
-                # # Revisar las palabras de filelist[c] con las de filelist[j + c]
-                # print(len(files[filelist[j + c]]))
+                results = compare(files[filelist[c]], files[filelist[j + c]])
 
-                # files[filelist[2]][k]
+                print(str(results).zfill(2) + "% de Probabilidad de Plagio entre: " +
+                      str(filelist[c]) + " y " + str(filelist[j + c]) + "\n")
         c = c + 1
-    return results
+
 """
-main() lee la carpeta y revia los archivos que sean txt.
+main()
+    - Lee la carpeta y revia los archivos que sean txt.
 """
 def main():
     # Arreglos
@@ -103,24 +105,6 @@ def main():
                 filelist.append(filename)
                 files[filename] = searchWords(file)
     combinations(files, filelist)
-    # Estos prints son para recordar como están los arreglos formados
-    # print('\n')
-    # print('\n')
-    # print(filelist[0])
-    # print('\n')
-    # print(files[filelist[0]])
-    # print('\n')
-    # print('\n')
-    # print(filelist[1])
-    # print('\n')
-    # print(files[filelist[1]])
-    # print('\n')
-    # print('\n')
-    # print(filelist[2])
-    # print('\n')
-    # print(files[filelist[2]][0])
-    # print('\n')
-    # print('\n')
 
 if __name__ == '__main__':
     main()
