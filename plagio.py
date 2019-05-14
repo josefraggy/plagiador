@@ -27,6 +27,7 @@ searchWords(nombre_archivo) Lee las palabras del txt y regresa:
     - Quita las palabras de relleno.
     - Las hace minusculas.
     - Quita simbolos y acentos.
+    - Validar para archivos vacios.
 """
 def searchWords(file):
     # Declaramos las letras y simbolos que se cambian.
@@ -58,12 +59,25 @@ compare(file1, file2) Compara las palabras entre textos:
 """
 def compare(file1, file2):
     number = 0
+    current = 0
+    last = 0
+
     for i in file1:
-        if i in file2:
-            number = number + 1
-        else:
-            pass
-    percentage = round((number * 100) / len(file1))
+        for j in file2:
+            # Revisamos la distancia de coincidencia
+            if i == j and (current - last) < 5:
+                number = number + 1
+                # Borras el elemento encontrado
+                file2.remove(i)
+                last = current
+            else:
+                pass
+        current = current + 1
+    # Validamos si el archivo esta vacio.
+    if len(file1) == 0:
+        percentage = 0
+    else:
+        percentage = round((number * 100) / len(file1))
     return percentage
 
 """
