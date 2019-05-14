@@ -14,10 +14,11 @@ https://www.quora.com/How-do-I-read-mutiple-txt-files-from-folder-in-python
 @version: 1.1
 
 TODO:
-    - Pensar si ordenar las palabras y solo buscar entre alfabeticas.
-    - Comparar las palabras entre arreglos y decir cuanto se parecen.
     - El total entre las que existen es el porcentaje de coincidencia.
     - Si hay mas del 50% de coincidencia se muestra el mensaje.
+    - Quitar las palabras entre comillas.
+    - Proximamente que funcione con pdf, pages y office.
+    - Que regrese un reporte en el que subraye las partes de coincidencia.
 """
 
 import os.path
@@ -53,6 +54,41 @@ def searchWords(file):
                   palabras.append(i[j])
     return palabras
 
+def compare(file1, file2):
+    number = 0
+    for i in file1:
+        if i in file2:
+            number = number + 1
+        else:
+            pass
+    print(number)
+"""
+combinations() compara los arreglos y regresa los porcentajes de error.
+"""
+def combinations(files, filelist):
+    results = []
+    c = 0
+    # Hacemos las combinaciones.
+    for i in filelist:
+        for j in range(len(filelist)):
+            # Si es la el mismo archivo o el ultimo, no lo cuenta.
+            if j + c >= len(filelist) \
+            or filelist[j + c] == filelist[c]:
+                pass
+            else:
+                compare(files[filelist[c]], files[filelist[j + c]])
+                # print(filelist[c])
+                # print(len(files[filelist[c]]))
+                # print("-" + filelist[j + c])
+                # # Revisar las palabras de filelist[c] con las de filelist[j + c]
+                # print(len(files[filelist[j + c]]))
+
+                # files[filelist[2]][k]
+        c = c + 1
+    return results
+"""
+main() lee la carpeta y revia los archivos que sean txt.
+"""
 def main():
     # Arreglos
     files    = {}
@@ -66,25 +102,25 @@ def main():
                 # Abrimos el archivo y quitamos palabras que no ocupamos.
                 filelist.append(filename)
                 files[filename] = searchWords(file)
-
+    combinations(files, filelist)
     # Estos prints son para recordar como están los arreglos formados
-    print('\n')
-    print('\n')
-    print(filelist[0])
-    print('\n')
-    print(files[filelist[0]])
-    print('\n')
-    print('\n')
-    print(filelist[1])
-    print('\n')
-    print(files[filelist[1]])
-    print('\n')
-    print('\n')
-    print(filelist[2])
-    print('\n')
-    print(files[filelist[2]][0])
-    print('\n')
-    print('\n')
+    # print('\n')
+    # print('\n')
+    # print(filelist[0])
+    # print('\n')
+    # print(files[filelist[0]])
+    # print('\n')
+    # print('\n')
+    # print(filelist[1])
+    # print('\n')
+    # print(files[filelist[1]])
+    # print('\n')
+    # print('\n')
+    # print(filelist[2])
+    # print('\n')
+    # print(files[filelist[2]][0])
+    # print('\n')
+    # print('\n')
 
 if __name__ == '__main__':
     main()
